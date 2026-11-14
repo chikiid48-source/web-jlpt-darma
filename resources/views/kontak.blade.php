@@ -34,11 +34,26 @@
         </div>
 
         <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
-            <a href="{{ route('beranda') }}" class="hover:text-blue-600 transition">Beranda</a>
-            <a href="{{ route('materi') }}" class="hover:text-blue-600 transition">Materi</a>
-            <a href="{{ route('latihan') }}" class="hover:text-blue-600 transition">Latihan</a>
-            <a href="{{ route('lokasi') }}" class="hover:text-blue-600 transition">Lokasi Ujian</a>
-            <a href="#" class="text-[#0f3465] font-bold border-b-2 border-[#0f3465] pb-1">Kontak</a>
+       <a href="{{ url('/') }}"
+       class="{{ request()->is('/') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+        Beranda
+    </a>
+    <a href="{{ url('/materi') }}"
+       class="{{ request()->is('materi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+        Materi
+    </a>
+    <a href="{{ url('/latihan') }}"
+       class="{{ request()->is('latihan*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+        Latihan
+    </a>
+    <a href="{{ url('/lokasi-ujian') }}"
+       class="{{ request()->is('lokasi-ujian*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+        Lokasi Ujian
+    </a>
+    <a href="{{ url('/kontak') }}"
+       class="{{ request()->is('kontak*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+        Kontak
+    </a>
             
             <div class="flex items-center space-x-4 border-l border-gray-300 pl-6">
                 @auth

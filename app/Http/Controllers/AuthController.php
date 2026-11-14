@@ -44,4 +44,22 @@ class AuthController extends Controller
 
         return redirect()->route('beranda');
     }
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        $user = \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+        ]);
+
+        \Illuminate\Support\Facades\Auth::login($user);
+
+        return redirect('/');
+    }
 }
