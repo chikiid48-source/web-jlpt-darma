@@ -18,7 +18,7 @@
 <body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col justify-between">
 
     <!-- Header / Navbar -->
-  <header class="w-full border-b border-gray-100 py-3 px-6 md:px-12 flex items-center justify-between bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm transition-all">
+    <header class="w-full border-b border-gray-100 py-3 px-6 md:px-12 flex items-center justify-between bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm transition-all">
         <div class="flex items-center">
             <!-- Panggil Logo dari Database -->
             <img src="{{ asset($webSetting->logo) }}" alt="Logo Web" class="h-10 md:h-12 w-auto object-contain border-r border-gray-300 pr-4 mr-4">
@@ -39,30 +39,36 @@
         </div>
 
         <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
-       <a href="{{ url('/') }}"
-       class="{{ request()->is('/') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
-        Beranda
-    </a>
-    <a href="{{ url('/materi') }}"
-       class="{{ request()->is('materi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
-        Materi
-    </a>
-    <a href="{{ url('/latihan') }}"
-       class="{{ request()->is('latihan*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
-        Latihan
-    </a>
-    <a href="{{ url('/lokasi-ujian') }}"
-       class="{{ request()->is('lokasi-ujian*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
-        Lokasi Ujian
-    </a>
-    <a href="{{ url('/kontak') }}"
-       class="{{ request()->is('kontak*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
-        Kontak
-    </a>
+            <a href="{{ url('/') }}"
+               class="{{ request()->is('/') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Beranda
+            </a>
+            <a href="{{ url('/materi') }}"
+               class="{{ request()->is('materi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Materi
+            </a>
+            <a href="{{ url('/latihan') }}"
+               class="{{ request()->is('latihan*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Latihan
+            </a>
+            <a href="{{ url('/lokasi-ujian') }}"
+               class="{{ request()->is('lokasi-ujian*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Lokasi Ujian
+            </a>
+            <a href="{{ url('/kontak') }}"
+               class="{{ request()->is('kontak*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Kontak
+            </a>
             
-            <div class="flex items-center space-x-4 border-l border-gray-300 pl-6">
+            <div class="flex items-center space-x-3 border-l border-gray-300 pl-6">
                 @auth
                     <span class="font-semibold text-[#0f3465]">Halo, {{ Auth::user()->name }}</span>
+                    <form action="{{ url('/logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="border border-red-200 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer">
+                            Keluar
+                        </button>
+                    </form>
                 @else
                     <a href="{{ route('login') }}" class="flex items-center space-x-2 border border-gray-300 px-5 py-2 rounded-full hover:bg-gray-50 transition text-[#0f3465] font-semibold text-sm shadow-sm">
                         <span>Masuk</span>
@@ -72,10 +78,10 @@
         </nav>
     </header>
 
-
     <!-- KONTEN UTAMA -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-6 md:px-12 py-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-24 mt-4">
+        <!-- Section 1: Hero & Pendaftaran Online JLPT 2026 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16 mt-4">
             <div class="lg:col-span-6 flex justify-center items-center p-2">
                 <img src="{{ asset('images/Gemini_Generated_Image_m212dmm212dmm212.jpg') }}" alt="Anime JLPT Character" class="w-full max-w-lg h-auto object-contain">
             </div>
@@ -125,10 +131,66 @@
                 </div>
             </div>
         </div>
+
+        <!-- Section 2: Kartu JLPT Sample Questions & Sample Workbook -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+            <!-- Kartu Biru: JLPT Sample Questions -->
+            <div class="bg-pattern-blue rounded-2xl p-6 md:p-8 flex items-center gap-6 shadow-sm">
+                <div class="w-36 md:w-44 h-28 md:h-32 bg-white rounded-xl p-2 flex items-center justify-center shadow-md flex-shrink-0 overflow-hidden">
+                    <img src="{{ asset('images/sample-laptop.png') }}" alt="JLPT Sample Questions" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <h3 class="text-lg md:text-xl font-bold text-white leading-snug">JLPT Sample Questions</h3>
+                    <p class="text-xs md:text-sm text-blue-100 mt-1 mb-5">Pelajari contoh soal tes JLPT</p>
+                    <a href="{{ url('/latihan') }}" class="inline-block bg-white text-[#1a428a] text-xs md:text-sm font-semibold px-7 py-2.5 rounded-full hover:bg-blue-50 transition shadow-sm">
+                        Selengkapnya
+                    </a>
+                </div>
+            </div>
+
+            <!-- Kartu Emas: JLPT Sample Workbook -->
+            <div class="bg-pattern-gold rounded-2xl p-6 md:p-8 flex items-center gap-6 shadow-sm">
+                <div class="w-36 md:w-44 h-28 md:h-32 bg-white rounded-xl p-2 flex items-center justify-center shadow-md flex-shrink-0 overflow-hidden">
+                    <img src="{{ asset('images/sample-buku.png') }}" alt="JLPT Sample Workbook" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <h3 class="text-lg md:text-xl font-bold text-white leading-snug">JLPT Sample Workbook</h3>
+                    <p class="text-xs md:text-sm text-yellow-50 mt-1 mb-5">Pelajari contoh soal tes JLPT</p>
+                    <a href="{{ url('/materi') }}" class="inline-block bg-white text-[#9c8134] text-xs md:text-sm font-semibold px-7 py-2.5 rounded-full hover:bg-yellow-50 transition shadow-sm">
+                        Selengkapnya
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Tentang JLPT -->
+        <div class="mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900">Tentang JLPT</h2>
+                <p class="text-xs md:text-sm font-semibold text-[#c3a45c] mt-1">JLPTについて</p>
+            </div>
+
+            <div class="bg-[#f1f5f9] rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-5/12">
+                    <img src="{{ asset('images/tentang-jlpt.jpg') }}" alt="Tentang JLPT" class="w-full h-60 md:h-64 object-cover rounded-xl shadow-sm">
+                </div>
+                <div class="w-full md:w-7/12 space-y-4 text-sm text-gray-700 leading-relaxed">
+                    <p>
+                        <strong class="font-bold text-gray-900">Japanese-Language Proficiency Test (JLPT)</strong> dikembangkan di Jepang dan telah menjadi standar sertifikasi kompetensi bahasa Jepang di seluruh dunia sejak tahun 1984. Sertifikasi umumnya dibutuhkan untuk study maupun bekerja di negara Jepang maupun lembaga dan perusahaan Jepang pada umumnya.
+                    </p>
+                    <p>
+                        Sebanyak 7,000 peserta dari seluruh dunia mengikuti test pertama JLPT yang dilaksanakan serentak di 15 negara di berbagai benua, dan pada tahun 2019 telah diikuti oleh lebih dari 1,268,511 peserta di 87 negara diseluruh dunia.
+                    </p>
+                    <p>
+                        Kini JLPT merupakan ujian sertifikasi kompetensi bahasa Jepang terbesar di dunia.
+                    </p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer Normal Dikembalikan -->
-   <footer class="w-full bg-[#fafafa] border-t border-gray-200 pt-12 pb-6 px-6 md:px-12 mt-auto">
+    <footer class="w-full bg-[#fafafa] border-t border-gray-200 pt-12 pb-6 px-6 md:px-12 mt-auto">
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center mb-10">
                 <!-- Panggil Logo Footer -->
