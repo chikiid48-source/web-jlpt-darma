@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
         // Membagikan variabel $webSetting ke SEMUA file blade (header/footer)
         View::composer('*', function ($view) {
             if (Schema::hasTable('settings')) {

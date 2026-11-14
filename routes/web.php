@@ -109,7 +109,3 @@ Route::post('/kontak/submit', function(Illuminate\Http\Request $request) {
 Route::post('/admin/setting', [App\Http\Controllers\QuestionController::class, 'updateSetting'])->name('setting.update');
 Route::delete('/admin/pesan/{id}', [App\Http\Controllers\QuestionController::class, 'destroyMessage'])->name('pesan.destroy');
 
-Route::get('/setup-db-rahasia', function() {
-    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
-    return 'Database berhasil di-migrate! Website sudah ONLINE!';
-});
