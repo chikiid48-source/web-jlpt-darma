@@ -51,8 +51,8 @@
                class="{{ request()->is('latihan*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
                 Latihan
             </a>
-            <a href="{{ url('/lokasi-ujian') }}"
-               class="{{ request()->is('lokasi-ujian*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+            <a href="{{ url('/lokasi') }}"
+               class="{{ request()->is('lokasi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
                 Lokasi Ujian
             </a>
             <a href="{{ url('/kontak') }}"
