@@ -28,7 +28,7 @@
 <body class="bg-gray-50 text-gray-900 antialiased min-h-screen flex flex-col justify-between">
 
     <!-- HEADER -->
- <header class="w-full border-b border-gray-100 py-3 px-6 md:px-12 flex items-center justify-between bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm transition-all">
+    <header class="w-full border-b border-gray-100 py-3 px-6 md:px-12 flex items-center justify-between bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm transition-all">
         <div class="flex items-center">
             <!-- Panggil Logo dari Database -->
             <img src="{{ asset($webSetting->logo) }}" alt="Logo Web" class="h-10 md:h-12 w-auto object-contain border-r border-gray-300 pr-4 mr-4">
@@ -49,15 +49,36 @@
         </div>
 
         <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
-            <a href="{{ route('beranda') }}" class="hover:text-blue-600 transition">Beranda</a>
-            <a href="{{ route('materi') }}" class="hover:text-blue-600 transition">Materi</a>
-            <a href="{{ route('latihan') }}" class="hover:text-blue-600 transition">Latihan</a>
-            <a href="{{ route('lokasi') }}" class="hover:text-blue-600 transition">Lokasi Ujian</a>
-            <a href="#" class="text-[#0f3465] font-bold border-b-2 border-[#0f3465] pb-1">Kontak</a>
+            <a href="{{ url('/') }}"
+               class="{{ request()->is('/') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Beranda
+            </a>
+            <a href="{{ url('/materi') }}"
+               class="{{ request()->is('materi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Materi
+            </a>
+            <a href="{{ url('/latihan') }}"
+               class="{{ request()->is('latihan*') || request()->is('hiragana*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Latihan
+            </a>
+            <a href="{{ url('/lokasi-ujian') }}"
+               class="{{ request()->is('lokasi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Lokasi Ujian
+            </a>
+            <a href="{{ url('/kontak') }}"
+               class="{{ request()->is('kontak*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Kontak
+            </a>
             
-            <div class="flex items-center space-x-4 border-l border-gray-300 pl-6">
+            <div class="flex items-center space-x-3 border-l border-gray-300 pl-6">
                 @auth
                     <span class="font-semibold text-[#0f3465]">Halo, {{ Auth::user()->name }}</span>
+                    <form action="{{ url('/logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="border border-red-200 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer">
+                            Keluar
+                        </button>
+                    </form>
                 @else
                     <a href="{{ route('login') }}" class="flex items-center space-x-2 border border-gray-300 px-5 py-2 rounded-full hover:bg-gray-50 transition text-[#0f3465] font-semibold text-sm shadow-sm">
                         <span>Masuk</span>
@@ -66,7 +87,6 @@
             </div>
         </nav>
     </header>
-
 
     <!-- KONTEN UTAMA -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-6 md:px-12 py-10 flex flex-col md:flex-row gap-8">
@@ -83,6 +103,11 @@
                     Latihan {{ $lvl }}
                 </button>
                 @endforeach
+
+                <!-- Menu Tambahan: Latihan Hiragana di bawah Latihan N1 -->
+                <button onclick="switchLatihan('hiragana')" id="btn-latihan-hiragana" class="sidebar-link text-left px-5 py-3 text-gray-700 w-full font-medium uppercase">
+                    Latihan Hiragana
+                </button>
             </nav>
         </aside>
 
@@ -90,7 +115,7 @@
         <section class="w-full md:w-3/4">
             
             @foreach(['n5', 'n4', 'n3', 'n2', 'n1'] as $lvl)
-            <!-- Konten Latihan Level -->
+            <!-- Konten Latihan Level N5 - N1 -->
             <div id="content-latihan-{{ $lvl }}" class="latihan-content {{ $lvl == 'n5' ? 'active' : '' }}">
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative">
                     <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-blue-50 to-transparent opacity-70"></div>
@@ -139,11 +164,59 @@
             </div>
             @endforeach
 
+            <!-- Konten Khusus: LATIHAN HIRAGANA -->
+            <div id="content-latihan-hiragana" class="latihan-content">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden relative">
+                    <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-blue-50 to-transparent opacity-70"></div>
+                    
+                    <div class="p-8 md:p-12 relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                        
+                        <div class="w-48 md:w-64 flex-shrink-0 flex justify-center">
+                            <img src="{{ asset('images/Gemini_Generated_Image_m212dmm212dmm212.jpg') }}" alt="Karakter JLPT" class="w-full h-auto object-contain drop-shadow-md rounded-lg">
+                        </div>
+
+                        <div class="flex-grow w-full">
+                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 text-sm text-gray-700 mb-8 relative speech-bubble shadow-sm">
+                                <p class="mb-3 font-bold text-[#0f3465] text-lg uppercase border-b border-gray-200 pb-2">
+                                    LATIHAN HIRAGANA
+                                </p>
+                                <p class="mb-3 font-medium text-gray-900 leading-relaxed text-base">
+                                    ひらがな・カタカナの もじを れんしゅうしましょう！ Pelajari dan hafalkan karakter dasar Hiragana & Katakana sebelum memulai kuis.
+                                </p>
+                                <p class="text-gray-500 italic">
+                                    Character Practice: Learn Japanese Hiragana & Katakana characters interactively.
+                                </p>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-6 mb-8 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked>
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0fb398]"></div>
+                                    <span class="ml-3 text-sm font-bold text-gray-700">Auto-next</span>
+                                </label>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0fb398]"></div>
+                                    <span class="ml-3 text-sm font-bold text-gray-700">Test mode</span>
+                                </label>
+                            </div>
+
+                            <div class="text-center md:text-left">
+                                <!-- Tombol Start mengarah ke halaman hiragana.blade.php -->
+                                <a href="{{ url('/hiragana') }}" class="bg-[#0f3465] text-white px-10 py-3.5 rounded-full font-black text-lg tracking-wide hover:bg-blue-800 transition shadow-lg transform hover:-translate-y-1 inline-block">
+                                    START NOW
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
     <!-- FOOTER STANDAR -->
-   <footer class="w-full bg-[#fafafa] border-t border-gray-200 pt-12 pb-6 px-6 md:px-12 mt-auto">
+    <footer class="w-full bg-[#fafafa] border-t border-gray-200 pt-12 pb-6 px-6 md:px-12 mt-auto">
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center mb-10">
                 <!-- Panggil Logo Footer -->

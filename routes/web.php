@@ -109,3 +109,6 @@ Route::post('/kontak/submit', function(Illuminate\Http\Request $request) {
 Route::post('/admin/setting', [App\Http\Controllers\QuestionController::class, 'updateSetting'])->name('setting.update');
 Route::delete('/admin/pesan/{id}', [App\Http\Controllers\QuestionController::class, 'destroyMessage'])->name('pesan.destroy');
 
+Route::get('/hiragana', function () {
+    return view('hiragana');
+})->name('hiragana');
