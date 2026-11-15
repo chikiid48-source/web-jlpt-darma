@@ -286,8 +286,8 @@
                 <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char">ロ</span><span class="text-sm font-semibold text-gray-400">ro</span><div class="char-line line-gray"></div></div>
 
                 <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char">ワ</span><span class="text-sm font-semibold text-gray-400">wa</span><div class="char-line line-gray"></div></div>
-                <div></div>
-                <div></div>
+                <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char">ヰ</span><span class="text-sm font-semibold text-gray-400">wi</span><div class="char-line line-gray"></div></div>
+                <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char"> Wu</span><span class="text-sm font-semibold text-gray-400">wu</span><div class="char-line line-gray"></div></div>
                 <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char">ヲ</span><span class="text-sm font-semibold text-gray-400">wo</span><div class="char-line line-gray"></div></div>
                 <div class="char-card"><span class="text-3xl font-bold mb-1 japanese-char">ン</span><span class="text-sm font-semibold text-gray-400">n</span><div class="char-line line-gray"></div></div>
             </div>
