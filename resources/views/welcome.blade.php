@@ -41,15 +41,36 @@
         </div>
 
         <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
-            <a href="{{ route('beranda') }}" class="hover:text-blue-600 transition">Beranda</a>
-            <a href="{{ route('materi') }}" class="hover:text-blue-600 transition">Materi</a>
-            <a href="{{ route('latihan') }}" class="hover:text-blue-600 transition">Latihan</a>
-            <a href="{{ route('lokasi') }}" class="hover:text-blue-600 transition">Lokasi Ujian</a>
-            <a href="#" class="text-[#0f3465] font-bold border-b-2 border-[#0f3465] pb-1">Kontak</a>
+            <a href="{{ url('/') }}"
+               class="{{ request()->is('/') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Beranda
+            </a>
+            <a href="{{ url('/materi') }}"
+               class="{{ request()->is('materi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Materi
+            </a>
+            <a href="{{ url('/latihan') }}"
+               class="{{ request()->is('latihan*') || request()->is('hiragana*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Latihan
+            </a>
+            <a href="{{ url('/lokasi') }}"
+               class="{{ request()->is('lokasi*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Lokasi Ujian
+            </a>
+            <a href="{{ url('/kontak') }}"
+               class="{{ request()->is('kontak*') ? 'text-[#003366] font-bold border-b-2 border-[#003366] pb-1' : 'text-gray-600 hover:text-[#003366] transition' }}">
+                Kontak
+            </a>
             
-            <div class="flex items-center space-x-4 border-l border-gray-300 pl-6">
+            <div class="flex items-center space-x-3 border-l border-gray-300 pl-6">
                 @auth
                     <span class="font-semibold text-[#0f3465]">Halo, {{ Auth::user()->name }}</span>
+                    <form action="{{ url('/logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="border border-red-200 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer">
+                            Keluar
+                        </button>
+                    </form>
                 @else
                     <a href="{{ route('login') }}" class="flex items-center space-x-2 border border-gray-300 px-5 py-2 rounded-full hover:bg-gray-50 transition text-[#0f3465] font-semibold text-sm shadow-sm">
                         <span>Masuk</span>
